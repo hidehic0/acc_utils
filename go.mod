@@ -1,4 +1,4 @@
-module github.com/hidehic0/acc_utils
+module hidehic0/acc_utils
 
 go 1.24.5
 

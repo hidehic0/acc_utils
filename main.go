@@ -1,10 +1,63 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
+	"log"
+	"maps"
 	"os"
+	"slices"
+
+	"hidehic0/acc_utils/type"
 
 	"github.com/spf13/cobra"
 )
+
+func getInfomation() types.Infomation {
+	bytes, err := os.ReadFile("./contest.acc.json")
+
+	if err != nil {
+		fmt.Println("file read error")
+		log.Fatal(err)
+		os.Exit(256)
+	}
+
+	var res types.Infomation
+
+	if err := json.Unmarshal(bytes, &res); err != nil {
+		fmt.Println("json parse error")
+		log.Fatal(err)
+		os.Exit(256)
+	}
+
+	return res
+}
+
+func getTaskInfomation() map[string]types.TaskInfomation {
+	res := make(map[string]types.TaskInfomation)
+
+	infomation := getInfomation()
+
+	for _, task := range infomation.Tasks {
+		res[task.Directory.Path] = task
+	}
+
+	return res
+}
+
+var geturlCmd = &cobra.Command{
+	Use:   "geturl",
+	Short: "get Urls",
+	Long:  "get Urls",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		tasks := getTaskInfomation()
+		for _, key := range slices.Sorted(maps.Keys(tasks)) {
+			task := tasks[key]
+			fmt.Printf("ID: %s URL: %s\n", task.Id, task.Url)
+		}
+		return nil
+	},
+}
 
 var rootCmd = &cobra.Command{
 	Use:   "accu",
@@ -24,4 +77,6 @@ func main() {
 	}
 }
 
-func init() {}
+func init() {
+	rootCmd.AddCommand(geturlCmd)
+}
