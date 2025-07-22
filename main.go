@@ -1,60 +1,46 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
 	"maps"
 	"os"
 	"slices"
 
-	"hidehic0/acc_utils/type"
+	"hidehic0/acc_utils/cmd"
+	"hidehic0/acc_utils/utils"
 
 	"github.com/spf13/cobra"
 )
-
-func getInfomation() types.Infomation {
-	bytes, err := os.ReadFile("./contest.acc.json")
-
-	if err != nil {
-		fmt.Println("file read error")
-		log.Fatal(err)
-		os.Exit(256)
-	}
-
-	var res types.Infomation
-
-	if err := json.Unmarshal(bytes, &res); err != nil {
-		fmt.Println("json parse error")
-		log.Fatal(err)
-		os.Exit(256)
-	}
-
-	return res
-}
-
-func getTaskInfomation() map[string]types.TaskInfomation {
-	res := make(map[string]types.TaskInfomation)
-
-	infomation := getInfomation()
-
-	for _, task := range infomation.Tasks {
-		res[task.Directory.Path] = task
-	}
-
-	return res
-}
 
 var geturlCmd = &cobra.Command{
 	Use:   "geturl",
 	Short: "get Urls",
 	Long:  "get Urls",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		tasks := getTaskInfomation()
+		tasks := utils.GetTaskInfomation()
 		for _, key := range slices.Sorted(maps.Keys(tasks)) {
 			task := tasks[key]
 			fmt.Printf("ID: %s URL: %s\n", task.Id, task.Url)
 		}
+		return nil
+	},
+}
+
+var submitCmd = &cobra.Command{
+	Use:   "submit",
+	Short: "Submit code",
+	Long:  "Submit code",
+	Args:  cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		task := args[0]
+
+		if !slices.Contains(utils.GetTasks(), task) {
+			fmt.Printf("task %s not found\n", task)
+			return nil
+		}
+
+		submit.SubmitFn(task)
+
 		return nil
 	},
 }
@@ -79,4 +65,5 @@ func main() {
 
 func init() {
 	rootCmd.AddCommand(geturlCmd)
+	rootCmd.AddCommand(submitCmd)
 }
