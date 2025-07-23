@@ -5,6 +5,7 @@ go 1.24.5
 require github.com/spf13/cobra v1.9.1
 
 require (
+	github.com/BurntSushi/toml v1.5.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/charmbracelet/bubbles v0.16.1 // indirect
