@@ -33,3 +33,6 @@ go.work.sum
 
 acc_utils
 contest.acc.json
+dist
+# Added by goreleaser init:
+dist/
