@@ -23,7 +23,8 @@ func SubmitFn(dir string) error {
 	items := []string{}
 
 	for _, file := range files {
-		if !file.IsDir() {
+		_, ok := utils.GetFileConfig()[file.Name()]
+		if !file.IsDir() && ok {
 			items = append(items, file.Name())
 		}
 	}
