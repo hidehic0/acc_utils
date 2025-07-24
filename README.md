@@ -1,6 +1,7 @@
 # acc utils
 
 [atcoder-cli](https://github.com/Tatamo/atcoder-cli)で生成されるjsonファイルを使用して、問題を提出するページを開いたりするツールです
+
 linuxとmacで動作します
 
 # 使い方
@@ -8,6 +9,7 @@ linuxとmacで動作します
 ### submitコマンド
 
 `~/.config/acc_utils/config.toml`を設定してから利用してください
+
 設定しないと候補も出ません
 
 ```bash
@@ -35,6 +37,7 @@ cmd = "oj-bundle main.cpp -I ~/cpp_library | xlip" # またこのような事も
 # インストール方法
 
 [リリース](https://github.com/hidehic0/acc_utils/releases/latest)にあるバイナリを落してパスを通してある所に置いてください
+
 おすすめは`/usr/local/bin`です
 
 またarchlinuxユーザーの方はAURパッケージを[作成](https://aur.archlinux.org/packages/acc_utils-bin)したのでそちらも使えます
