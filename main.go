@@ -6,8 +6,8 @@ import (
 	"os"
 	"slices"
 
-	"hidehic0/acc_utils/cmd"
-	"hidehic0/acc_utils/utils"
+	"hidehic0/acc_utils/internal/cmd"
+	"hidehic0/acc_utils/internal/utils"
 
 	"github.com/spf13/cobra"
 )
