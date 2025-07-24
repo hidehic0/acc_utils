@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"maps"
 	"os"
 	"slices"
@@ -39,7 +40,33 @@ var submitCmd = &cobra.Command{
 			return nil
 		}
 
-		submit.SubmitFn(task)
+		cmdFn.SubmitFn(task)
+
+		return nil
+	},
+}
+
+var OEISCmd = &cobra.Command{
+	Use:   "oeis",
+	Short: "Search OEIS",
+	Long:  "Search OEIS",
+	Args:  cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		start, err := cmd.Flags().GetInt("start")
+
+		if err != nil {
+			log.Fatal(err)
+			os.Exit(256)
+		}
+
+		end, err := cmd.Flags().GetInt("end")
+
+		if err != nil {
+			log.Fatal(err)
+			os.Exit(256)
+		}
+
+		cmdFn.OeisCmdFn(args[0], start, end)
 
 		return nil
 	},
@@ -66,4 +93,7 @@ func main() {
 func init() {
 	rootCmd.AddCommand(geturlCmd)
 	rootCmd.AddCommand(submitCmd)
+	rootCmd.AddCommand(OEISCmd)
+	OEISCmd.Flags().IntP("start", "s", 1, "start number")
+	OEISCmd.Flags().IntP("end", "e", 6, "end number")
 }
