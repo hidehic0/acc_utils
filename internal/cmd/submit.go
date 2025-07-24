@@ -71,13 +71,8 @@ func SubmitFn(dir string) error {
 
 	os.Chdir(prevdir)
 
-	command := exec.Command("xdg-open", utils.GetTaskInfomation()[dir].Url+"#editor")
-	err = command.Start()
-
-	if err != nil {
-		log.Fatal(err)
-		return err
-	}
+	// open browser
+	utils.BrowserOpen(utils.GetTaskInfomation()[dir].Url + "#editor")
 
 	return nil
 }
