@@ -34,7 +34,7 @@ file = "main.cpp"
 cmd = "oj-bundle main.cpp -I ~/cpp_library | xlip" # またこのような事もできます
 ```
 
-### oeisコマンド
+### OEISコマンド
 
 これは設定もcontest.acc.jsonも不要です
 指定されたコマンドの結果をOEISで検索できます
