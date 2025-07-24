@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"hidehic0/acc_utils/utils"
+	"hidehic0/acc_utils/internal/utils"
 
 	"github.com/koki-develop/go-fzf"
 )

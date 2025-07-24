@@ -6,7 +6,7 @@ import (
 	"path"
 	"path/filepath"
 
-	config_type "hidehic0/acc_utils/type"
+	config_type "hidehic0/acc_utils/internal/type"
 
 	"github.com/BurntSushi/toml"
 )

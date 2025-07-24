@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	types "hidehic0/acc_utils/type"
+	types "hidehic0/acc_utils/internal/type"
 )
 
 func GetInfomation() types.Infomation {
