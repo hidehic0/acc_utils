@@ -34,6 +34,17 @@ file = "main.cpp"
 cmd = "oj-bundle main.cpp -I ~/cpp_library | xlip" # またこのような事もできます
 ```
 
+### oeisコマンド
+
+これは設定もcontest.acc.jsonも不要です
+指定されたコマンドの結果をOEISで検索できます
+
+実行されるコマンドは整数nを受けとり1つの整数を出力する形でないといけません
+
+```bash
+acc_utils oeis [実行するコマンド(必須)] -s [初期値(任意)] -e [終了値(任意)]
+```
+
 # インストール方法
 
 [リリース](https://github.com/hidehic0/acc_utils/releases/latest)にあるバイナリを落してパスを通してある所に置いてください
