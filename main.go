@@ -46,6 +46,23 @@ var submitCmd = &cobra.Command{
 	},
 }
 
+var randomCaseCmd = &cobra.Command{
+	Use:   "random_case",
+	Short: "Generate random case",
+	Long:  "Generate random case",
+	Args:  cobra.ExactArgs(2),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		generateCmd := args[0]
+		solveCmd := args[1]
+		n, _ := cmd.Flags().GetInt("n")
+		dir, _ := cmd.Flags().GetString("dir")
+
+		cmdFn.RandomCaseFn(generateCmd, solveCmd, n, dir)
+
+		return nil
+	},
+}
+
 var OEISCmd = &cobra.Command{
 	Use:   "oeis",
 	Short: "Search OEIS",
@@ -94,6 +111,10 @@ func init() {
 	rootCmd.AddCommand(geturlCmd)
 	rootCmd.AddCommand(submitCmd)
 	rootCmd.AddCommand(OEISCmd)
+	rootCmd.AddCommand(randomCaseCmd)
 	OEISCmd.Flags().IntP("start", "s", 1, "start number")
 	OEISCmd.Flags().IntP("end", "e", 6, "end number")
+	randomCaseCmd.Flags().IntP("n", "n", 10, "number of case")
+	randomCaseCmd.Flags().StringP("dir", "d", "tests", "test directory")
+
 }
