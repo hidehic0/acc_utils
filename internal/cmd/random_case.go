@@ -60,6 +60,11 @@ func caseGenerator(generateCmd string, solveCmd string, file_index int, dir stri
 }
 
 func RandomCaseFn(generateCmd string, solveCmd string, n int, dir string) error {
+	_, err := os.Stat(path.Join("./", dir))
+	if err != nil {
+		exec.Command("mkdir", path.Join("./", dir)).Run()
+	}
+
 	c := make(chan error, n)
 	for i := 0; i < n; i++ {
 		go caseGenerator(generateCmd, solveCmd, i, dir, c)
