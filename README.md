@@ -45,6 +45,20 @@ cmd = "oj-bundle main.cpp -I ~/cpp_library | xlip" # またこのような事も
 acc_utils oeis [実行するコマンド(必須)] -s [初期値(任意)] -e [終了値(任意)]
 ```
 
+### random_caseコマンド
+
+ランダムテストケースを作成できます
+[online-judge-tools](https://github.com/online-judge-tools/oj)のテスト機能に基ずいたランダムテストケースを作成できます
+
+inputを作成するコマンドは標準出力でケースを出してください
+outputを作成するコマンドは標準入力でテストケースが渡され標準入力で返してください
+
+使い方
+
+```bash
+acc_utils random_case "[inputを作成するコマンド(必須)]" "[outputを作成するコマンド(必須)] -n [作成するケースの数(任意 デフォルトは10)] -e [テストケースを出力するディレクトリ(任意 デフォルトは tests)]"
+```
+
 # インストール方法
 
 [リリース](https://github.com/hidehic0/acc_utils/releases/latest)にあるバイナリを落してパスを通してある所に置いてください
