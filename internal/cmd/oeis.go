@@ -11,7 +11,13 @@ import (
 	"hidehic0/acc_utils/internal/utils"
 )
 
-func runCmdWithN(command string, n int) int {
+type cmdN struct {
+	val int
+	ind int
+	err error
+}
+
+func runCmdWithN(command string, n int, reschan chan cmdN) int {
 	shell := os.Getenv("SHELL")
 	cmd := exec.Command(shell, "-c", command)
 	cmd.Stdin = strings.NewReader(fmt.Sprintf("%d\n", n))
@@ -25,19 +31,27 @@ func runCmdWithN(command string, n int) int {
 
 	val, err := strconv.Atoi(strings.TrimSpace(string(out)))
 	if err != nil {
-
 		log.Fatal(err)
 		os.Exit(256)
 	}
+
+	reschan <- cmdN{val, n, err}
 
 	return val
 }
 
 func OeisCmdFn(cmd string, start int, end int) error {
-	var lis []int
+	lis := make([]int, end)
+
+	reschan := make(chan cmdN)
 
 	for i := start; i <= end; i++ {
-		lis = append(lis, runCmdWithN(cmd, i))
+		go runCmdWithN(cmd, i, reschan)
+	}
+
+	for i := start; i <= end; i++ {
+		res := <-reschan
+		lis[res.ind-start] = res.val
 	}
 
 	url := "https://oeis.org/search?q="
