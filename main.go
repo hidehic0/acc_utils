@@ -8,9 +8,12 @@ import (
 	"slices"
 
 	"hidehic0/acc_utils/internal/cmd"
+	"hidehic0/acc_utils/internal/ui/submit_select"
 	"hidehic0/acc_utils/internal/utils"
 
 	"github.com/spf13/cobra"
+
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 var geturlCmd = &cobra.Command{
@@ -41,6 +44,21 @@ var submitCmd = &cobra.Command{
 		}
 
 		cmdFn.SubmitFn(task)
+
+		return nil
+	},
+}
+
+var submitRCmd = &cobra.Command{
+	Use:   "submit_s",
+	Short: "Select a directory and submit",
+	Long:  "Select a directory and submit",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		p := tea.NewProgram(submit_select_ui.InitalModel())
+
+		if _, err := p.Run(); err != nil {
+			return err
+		}
 
 		return nil
 	},
@@ -112,9 +130,9 @@ func init() {
 	rootCmd.AddCommand(submitCmd)
 	rootCmd.AddCommand(OEISCmd)
 	rootCmd.AddCommand(randomCaseCmd)
+	rootCmd.AddCommand(submitRCmd)
 	OEISCmd.Flags().IntP("start", "s", 1, "start number")
 	OEISCmd.Flags().IntP("end", "e", 6, "end number")
 	randomCaseCmd.Flags().IntP("n", "n", 10, "number of case")
 	randomCaseCmd.Flags().StringP("dir", "d", "tests", "test directory")
-
 }
