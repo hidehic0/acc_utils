@@ -39,6 +39,10 @@
             meta = meta;
             src = ./.;
             modules = ./gomod2nix.toml;
+            postInstall = ''
+              mkdir -p $out/share/zsh/site-functions
+              $out/bin/acc_utils completion zsh > $out/share/zsh/site-functions/_acc_utils
+            '';
           };
         };
         devShells.default = pkgs.mkShell {
