@@ -13,7 +13,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 )
 
 var geturlCmd = &cobra.Command{

@@ -4,7 +4,7 @@ import (
 	cmdFn "hidehic0/acc_utils/internal/cmd"
 	"hidehic0/acc_utils/internal/utils"
 
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 )
 
 type model struct {
@@ -27,7 +27,7 @@ func (m model) Init() tea.Cmd {
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-	case tea.KeyMsg:
+	case tea.KeyPressMsg:
 		switch msg.String() {
 		case "enter":
 			cmdFn.SubmitFn(m.items[m.cursor])
@@ -52,7 +52,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m model) View() string {
+func (m model) View() tea.View {
 	s := "Which one do you want to submit?"
 
 	for i, item := range m.items {
@@ -66,5 +66,5 @@ func (m model) View() string {
 		s += item
 	}
 
-	return s
+	return tea.NewView(s)
 }
