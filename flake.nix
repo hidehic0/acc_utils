@@ -47,6 +47,7 @@
         };
         devShells.default = pkgs.mkShell {
           packages = [
+            pkgs.go-licenses
             pkgs.goreleaser
             pkgs.go
             gomod2nix.packages.${system}.default
